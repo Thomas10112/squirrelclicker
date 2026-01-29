@@ -1,13 +1,87 @@
 <!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Squirrel Clicker | Ramasse des glands !</title>
-</head>
-<body>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Squirrel Clicker</title>
 
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/variables.css" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/pages/pageIndex.css"/>
+    <script src="src/main.js" defer></script>
+
+    <!-- SEO / partage (optionnel) -->
+    <meta name="description" content="Squirrel Clicker — jeu de clicker." />
+</head>
+
+<body>
+<div id="app">
+
+    <!-- HEADER -->
+    <header class="topbar" id="topbar">
+        <div class="brand" id="brand">
+            <h1>Squirrel Clicker</h1>
+        </div>
+
+        <nav class="topbar-actions" id="topbarActions">
+            <!-- boutons: settings, save, mute (plus tard) -->
+        </nav>
+    </header>
+
+    <!-- MAIN -->
+    <main class="layout" id="layout">
+
+        <!-- LEFT: stats -->
+        <aside class="panel panel--stats" id="statsPanel">
+            <section class="stat-block" id="mainStats">
+                <h2>Statistiques</h2>
+                <!-- noisettes, cps, click power -->
+
+            </section>
+
+            <section class="stat-block" id="secondaryStats">
+                <!-- total clicks, best crit, etc (plus tard) -->
+            </section>
+        </aside>
+
+        <!-- CENTER: click zone -->
+        <section class="center" id="center">
+            <div class="click-area" id="clickArea">
+                <div id="compteurBoite">
+                    <p id="compteur">0</p>
+                </div>
+                <!-- l’écureuil cliquable -->
+                <button class="clicker" id="clicker" type="button">
+                    <div id="flottant"></div>
+                    <img src="./assets/img/squirrels/main-squirrel.png" alt="Image d'écureuil cliquable">
+                </button>
+            </div>
+
+            <div class="quick-actions" id="quickActions">
+                <!-- bouton reset dev / autosave etc (plus tard) -->
+            </div>
+        </section>
+
+        <!-- RIGHT: shop (plus tard, mais on réserve la place) -->
+        <aside class="panel panel--shop" id="shopPanel">
+            <header class="panel-title">
+                <!-- "Boutique" -->
+                <h2>Boutique</h2>
+            </header>
+
+            <div class="shop-list" id="shopList">
+                <!-- cards bâtiments/upgrades -->
+            </div>
+        </aside>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer" id="footer">
+        <!-- version, crédits, liens -->
+    </footer>
+
+</div>
 </body>
 </html>

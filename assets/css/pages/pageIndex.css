@@ -1,0 +1,34 @@
+/* === MODELE POUR LES +1 DYNAMIQUES === */
+#flottant {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+/* +1 flottant */
+.flottant {
+    position: absolute;
+    font-family: var(--typo-affichage);
+    font-weight: 700;
+    color: var(--accent-noisette);
+    font-size: 18px;
+    animation: floatUp 600ms ease-out forwards;
+}
+
+.flottant{
+    transform: translate(-50%, -50%);
+}
+
+.gland {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    background: url(/assets/img/items/glands-click1.png) center / contain no-repeat;
+    mix-blend-mode: multiply;
+}
+
+
+@keyframes floatUp {
+    from { transform: translate(-50%, -50%) translateY(0); opacity: 1; }
+    to   { transform: translate(-50%, -50%) translateY(-30px); opacity: 0; }
+}
