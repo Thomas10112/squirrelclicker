@@ -1,0 +1,167 @@
+/*
+* ========= VARIABLES CSS ==========
+*/
+
+/* === INITIALISATION TYPOGRAPHIES === */
+@font-face {
+    font-family: "GEOM";
+    src: url("/assets/fonts/Geom/Geom-Black.ttf") format("truetype");
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "GEOM";
+    src: url("/assets/fonts/Geom/Geom-BlackItalic.ttf") format("truetype");
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "GEOM";
+    src: url("/assets/fonts/Geom/Geom-Bold.ttf") format("truetype");
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "GEOM";
+    src: url("/assets/fonts/Geom/Geom-BoldItalic.ttf") format("truetype");
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "GEOM";
+    src: url("/assets/fonts/Geom/Geom-ExtraBold.ttf") format("truetype");
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "GEOM";
+    src: url("/assets/fonts/Geom/Geom-ExtraBoldItalic.ttf") format("truetype");
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "GEOM";
+    src: url("/assets/fonts/Geom/Geom-Italic.ttf") format("truetype");
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "GEOM";
+    src: url("/assets/fonts/Geom/Geom-Light.ttf") format("truetype");
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "GEOM";
+    src: url("/assets/fonts/Geom/Geom-LightItalic.ttf") format("truetype");
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "GEOM";
+    src: url("/assets/fonts/Geom/Geom-Medium.ttf") format("truetype");
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "GEOM";
+    src: url("/assets/fonts/Geom/Geom-MediumItalic.ttf") format("truetype");
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "GEOM";
+    src: url("/assets/fonts/Geom/Geom-Regular.ttf") format("truetype");
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "GEOM";
+    src: url("/assets/fonts/Geom/Geom-SemiBold.ttf") format("truetype");
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "GEOM";
+    src: url("/assets/fonts/Geom/Geom-SemiBoldItalic.ttf") format("truetype");
+    font-style: normal;
+    font-display: swap;
+}
+
+/* === VARIABLES ROOT === */
+:root {
+    /* === BACKGROUNDS === */
+    --bg-foret-extra-sombre: #070b07;   /* nuit forêt */
+    --bg-foret-sombre: #0c140e;   /* vert très sombre */
+    --bg--foret-mousse: #122016;   /* vert mousse */
+
+    /* === SURFACES === */
+    --surface-0: rgba(17, 27, 18, 0.78);
+    --surface-1: rgba(24, 40, 26, 0.82);
+    --surface-2: rgba(33, 52, 35, 0.88);
+
+    /* === BORDURES === */
+    --bordure: rgba(255, 255, 255, 0.10);
+    --contour-survol: rgba(248, 200, 96, 0.22);
+
+    /* === TEXTES === */
+    --text: #eef3ea;
+    --mute: rgba(238, 243, 234, 0.72);
+    --sous-titre: rgba(238, 243, 234, 0.52);
+
+    /* === COULEURS PRINCIPALES === */
+    --accent-gland: #c28a2c; /* gland */
+    --accent-noisette:   #d6a14a;   /* noisette dorée */
+    --accent-feuille:  #58b368;   /* feuille */
+    --accent-ecorce:  #6b4f35;   /* écorce */
+
+    /* === ÉTATS === */
+    --succes: #63d471;
+    --attention: #f5c542;
+    --mauvais: #ff5c5c;
+
+    /* === OMBRES === */
+    --ombre-petite: 0 6px 18px rgba(0,0,0,0.35);
+    --ombre-moyenne: 0 16px 44px rgba(0,0,0,0.48);
+    --ombre-grande: 0 26px 70px rgba(0,0,0,0.58);
+
+    /* === BORDER RADIUS === */
+    --br-petite: 10px;
+    --br-moyenne: 16px;
+    --br-grande: 22px;
+
+    /* === ESPACES === */
+    --espace-1: 6px;
+    --espace-2: 10px;
+    --espace-3: 14px;
+    --espace-4: 18px;
+    --espace-5: 24px;
+    --espace-6: 32px;
+
+    /* === TYPOGRAPHIES === */
+    --typo-affichage: "GEOM", system-ui, sans-serif;
+    --typo-ui: system-ui, -apple-system, "Segoe UI", Robot, Arial, "Helvetica Neue", sans-serif;
+    --typo-tres-petite: 12px;
+    --typo-petite: 14px;
+    --typo-moyenne: 16px;
+    --typo-grande: 20px;
+    --typo-tres-grande: 28px;
+    --typo-large: 40px;
+
+    /* === CONTENEUR === */
+    --container: 1100px;
+
+}

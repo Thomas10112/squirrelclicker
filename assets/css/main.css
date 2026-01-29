@@ -1,0 +1,103 @@
+/* === REGLES GLOBALES ===*/
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(180deg, var(--bg-foret-sombre), var(--bg--foret-mousse));
+    color: var(--text);
+    font-family: var(--typo-ui);
+}
+
+#center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: var(--espace-2);
+    min-height: 100vh;
+}
+
+#compteurBoite {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+
+#app {
+    min-height: 100vh;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+}
+
+#compteur {
+    font-family: var(--typo-affichage);
+    font-size: var(--typo-tres-grande);
+    font-weight: 900;
+    color: var(--accent-gland);
+    margin-bottom: var(--espace-4);
+    text-shadow: var(--ombre-moyenne);
+    text-align: center;
+}
+
+.click-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+#clicker {
+    width: 300px;
+    height: 300px;
+
+    background: transparent;
+    border: none;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    cursor: pointer;
+}
+
+
+#clicker img {
+    max-width: 65%;
+    max-height: 65%;
+    width: auto;
+    height: auto;
+    user-select: none;
+    pointer-events: none;
+}
+
+#clicker:active img {
+    transform: scale(0.96);
+}
+
+#clicker::before {
+    content: "";
+    position: absolute;
+    inset: 20%;
+    border-radius: 50%;
+    background: radial-gradient(
+            circle,
+            rgba(194,138,44,0.15),
+            transparent 70%
+    );
+}
+
