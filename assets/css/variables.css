@@ -161,7 +161,18 @@
     --typo-tres-grande: 28px;
     --typo-large: 40px;
 
-    /* === CONTENEUR === */
+    /* === CONTENEURS === */
     --container: 1100px;
-
+    
+    /* === CARDS === */
+    --clr-bg: #0b1020;
+    --clr-surface: #111827;
+    --clr-card: #0f172a;
+    --clr-border: rgba(255,255,255,.08);
+    --clr-text-principal: #e5e7eb;
+    --clr-text-mute: #94a3b8;
+    --clr-primaire: #fbbf24;     /* gland / accent */
+    --clr-primaire-survol: #f59e0b;
+    --clr-secondaire: #60a5fa;
+    --clr-danger: #ef4444;
 }

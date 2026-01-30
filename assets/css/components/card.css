@@ -1,0 +1,51 @@
+.card {
+    background: var(--clr-card);
+    color: var(--clr-text-principal);
+    border-radius: var(--br-moyenne);
+    padding: var(--espace-4);
+    box-shadow: var(--ombre-grande);
+    border: 1px solid var(--clr-border);
+}
+
+.card-titre {
+    font-weight: bold;
+    margin-bottom: var(--espace-2);
+    text-align: center;
+}
+
+.card-mute {
+    color: var(--clr-text-mute);
+    font-size: .9rem;
+}
+
+/* === BOUTONS === */
+
+.btn {
+    font-family: var(--typo-affichage);
+    border-radius: var(--br-moyenne);
+    padding: var(--espace-2) var(--espace-4);
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all .2s ease-in-out, background .2s ease-in-out;
+}
+
+.btn-primaire {
+    background: var(--clr-primaire);
+    color: #1a1a1a;
+}
+
+.btn-primaire:hover {
+    background: var(--clr-primaire-survol);
+    color: #fff;
+}
+
+.btn-secondaire {
+    background: var(--clr-secondaire);
+    color: #fff;
+}
+
+.btn-inactif {
+    opacity: .5;
+    pointer-events: none;
+}

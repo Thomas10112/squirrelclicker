@@ -1,5 +1,8 @@
 /* === REGLES GLOBALES ===*/
-
+@import "/assets/css/components/button.css";
+@import "/assets/css/variables.css";
+@import "/assets/css/components/card.css";
+@import "/assets/css/components/modal.css";
 *, *:before, *:after {
     box-sizing: border-box;
 }
@@ -13,7 +16,7 @@ body {
     min-height: 100vh;
     background: linear-gradient(180deg, var(--bg-foret-sombre), var(--bg--foret-mousse));
     color: var(--text);
-    font-family: var(--typo-ui);
+    font-family: var(--typo-affichage), sans-serif;
 }
 
 #center {
@@ -21,7 +24,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     gap: var(--espace-2);
     min-height: 100vh;
 }
@@ -30,8 +32,6 @@ body {
     display: flex;
     justify-content: center;
 }
-
-
 
 
 #app {
@@ -96,8 +96,33 @@ body {
     border-radius: 50%;
     background: radial-gradient(
             circle,
-            rgba(194,138,44,0.15),
+            rgba(194, 138, 44, 0.15),
             transparent 70%
     );
+}
+
+@keyframes flotter {
+    0% {
+        transform: translateX(0);
+    }
+    20% {
+        transform: translateX(-4px);
+    }
+    40% {
+        transform: translateX(2px);
+    }
+    60% {
+        transform: translateX(-1px);
+    }
+    80% {
+        transform: translateX(1px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.anim-compteur {
+    animation: flotter 1s ease-in-out;
 }
 
