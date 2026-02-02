@@ -5,101 +5,101 @@
 /* === INITIALISATION TYPOGRAPHIES === */
 @font-face {
     font-family: "GEOM";
-    src: url("/assets/fonts/Geom/Geom-Black.ttf") format("truetype");
+    src: url("../fonts/Geom/Geom-Regular.ttf") format("truetype");
+    font-weight: 400;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
     font-family: "GEOM";
-    src: url("/assets/fonts/Geom/Geom-BlackItalic.ttf") format("truetype");
+    src: url("../fonts/Geom/Geom-Italic.ttf") format("truetype");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "GEOM";
+    src: url("../fonts/Geom/Geom-Medium.ttf") format("truetype");
+    font-weight: 500;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
     font-family: "GEOM";
-    src: url("/assets/fonts/Geom/Geom-Bold.ttf") format("truetype");
+    src: url("../fonts/Geom/Geom-MediumItalic.ttf") format("truetype");
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "GEOM";
+    src: url("../fonts/Geom/Geom-SemiBold.ttf") format("truetype");
+    font-weight: 600;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
     font-family: "GEOM";
-    src: url("/assets/fonts/Geom/Geom-BoldItalic.ttf") format("truetype");
+    src: url("../fonts/Geom/Geom-SemiBoldItalic.ttf") format("truetype");
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "GEOM";
+    src: url("../fonts/Geom/Geom-Bold.ttf") format("truetype");
+    font-weight: 700;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
     font-family: "GEOM";
-    src: url("/assets/fonts/Geom/Geom-ExtraBold.ttf") format("truetype");
+    src: url("../fonts/Geom/Geom-BoldItalic.ttf") format("truetype");
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "GEOM";
+    src: url("../fonts/Geom/Geom-ExtraBold.ttf") format("truetype");
+    font-weight: 800;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
     font-family: "GEOM";
-    src: url("/assets/fonts/Geom/Geom-ExtraBoldItalic.ttf") format("truetype");
+    src: url("../fonts/Geom/Geom-ExtraBoldItalic.ttf") format("truetype");
+    font-weight: 800;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "GEOM";
+    src: url("../fonts/Geom/Geom-Black.ttf") format("truetype");
+    font-weight: 900;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
     font-family: "GEOM";
-    src: url("/assets/fonts/Geom/Geom-Italic.ttf") format("truetype");
-    font-style: normal;
+    src: url("../fonts/Geom/Geom-BlackItalic.ttf") format("truetype");
+    font-weight: 900;
+    font-style: italic;
     font-display: swap;
 }
 
-@font-face {
-    font-family: "GEOM";
-    src: url("/assets/fonts/Geom/Geom-Light.ttf") format("truetype");
-    font-style: normal;
-    font-display: swap;
-}
 
-@font-face {
-    font-family: "GEOM";
-    src: url("/assets/fonts/Geom/Geom-LightItalic.ttf") format("truetype");
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "GEOM";
-    src: url("/assets/fonts/Geom/Geom-Medium.ttf") format("truetype");
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "GEOM";
-    src: url("/assets/fonts/Geom/Geom-MediumItalic.ttf") format("truetype");
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "GEOM";
-    src: url("/assets/fonts/Geom/Geom-Regular.ttf") format("truetype");
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "GEOM";
-    src: url("/assets/fonts/Geom/Geom-SemiBold.ttf") format("truetype");
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "GEOM";
-    src: url("/assets/fonts/Geom/Geom-SemiBoldItalic.ttf") format("truetype");
-    font-style: normal;
-    font-display: swap;
-}
 
 /* === VARIABLES ROOT === */
 :root {

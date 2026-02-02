@@ -1,8 +1,8 @@
 /* === REGLES GLOBALES ===*/
-@import "/assets/css/components/button.css";
-@import "/assets/css/variables.css";
-@import "/assets/css/components/card.css";
-@import "/assets/css/components/modal.css";
+@import "./components/button.css";
+@import "./variables.css";
+@import "./components/card.css";
+@import "./components/modal.css";
 *, *:before, *:after {
     box-sizing: border-box;
 }
