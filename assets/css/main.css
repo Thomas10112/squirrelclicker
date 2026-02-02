@@ -19,6 +19,44 @@ body {
     font-family: var(--typo-affichage), sans-serif;
 }
 
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 var(--espace-4);
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.topbar h1 {
+    text-align: center;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    margin-top: 0;
+    font-size: .8rem;
+    color: var(--clr-text-mute);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 #center {
     display: flex;
     flex-direction: column;
@@ -32,13 +70,14 @@ body {
     justify-content: center;
 }
 
-
 #app {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    padding-top: 80px; /* Espace pour la topbar fixed */
+    padding-bottom: 60px; /* Espace pour le footer fixed */
 }
 
 .layout {
@@ -262,10 +301,10 @@ body {
 /* Animations */
 @keyframes jumpRight {
     0% { transform: translate(0, 0) rotate(0deg); }
-    25% { transform: translate(350px, -50px) rotate(10deg); }
-    50% { transform: translate(750px, 0) rotate(0deg); }
-    75% { transform: translate(1100px, -50px) rotate(-10deg); }
-    100% { transform: translate(1450px, -20px) rotate(-30deg);}
+    25% { transform: translate(150px, -50px) rotate(30deg); }
+    50% { transform: translate(750px, 0) rotate(-20deg); }
+    75% { transform: translate(1100px, -50px) rotate(0deg); }
+    100% { transform: translate(1450px, -50px) rotate(-30deg);}
 }
 
 .anim-jump {
