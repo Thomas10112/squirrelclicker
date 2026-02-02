@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="fr">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Squirrel Clicker</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="./assets/css/main.css" />
+    <link rel="stylesheet" href="./assets/css/main.css"/>
     <script type="module" src="src/main.js" defer></script>
 
     <!-- SEO / partage (optionnel) -->
-    <meta name="description" content="Squirrel Clicker — jeu de clicker." />
+    <meta name="description" content="Squirrel Clicker — jeu de clicker."/>
 </head>
 
 <body>
@@ -34,14 +34,18 @@
         <aside class="panel panel--stats" id="statsPanel">
             <section class="stat-block" id="mainStats">
                 <h2>Statistiques</h2>
-                <!-- noisettes, cps, click power -->
-
+                <p>Glands: <b id="glands-value">0</b></p>
+                <p>Par seconde: <b id="gps-value">0.00</b></p>
             </section>
 
             <section class="stat-block" id="secondaryStats">
                 <!-- total clicks, best crit, etc (plus tard) -->
             </section>
         </aside>
+        <div id="jump-container">
+            <img id="jump-squirrel" src="./assets/img/squirrels/jump-squirrel.png" alt="Ecureuil qui saute">
+            <div id="jump-bubble" class="bubble">JE SAUTE T'ES CONTENT ?</div>
+        </div>
 
         <!-- CENTER: click zone -->
         <section class="center" id="center">
