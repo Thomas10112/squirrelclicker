@@ -10,8 +10,9 @@
 /* =========================
    IMPORTS (toujours en haut)
    ========================= */
-import { initialState } from "./core/state.js";
-import { industries, prixIndustries, peutAcheterIndustrie } from "./systems/machines/industries.js";
+import {initialState} from "./core/state.js";
+import {industries, prixIndustries, peutAcheterIndustrie} from "./systems/machines/industries.js";
+import { paliers } from "./systems/palier.js";
 
 /* =========================
    STATE (état du jeu)
@@ -53,20 +54,37 @@ function ajouterClasse() {
     compteur.classList.add("anim-compteur");
 }
 
-// texte flottant autour du centre
+// texte flottant (gland) autour du centre
 function apparaitreFlottant(text) {
+    const div = document.createElement("div");
+    div.className = "gland-flottant";
+    
+    // Image du gland
+    const img = document.createElement("img");
+    img.src = "/assets/img/items/glands-click.png";
+    img.alt = "gland";
+    
+    // Texte (+X)
     const span = document.createElement("span");
-    span.className = "gland";
     span.textContent = text;
 
-    // position aléatoire autour du centre
-    span.style.left = (50 + Math.random() * 20 - 10) + "%";
-    span.style.top = (50 + Math.random() * 20 - 10) + "%";
+    div.appendChild(img);
+    div.appendChild(span);
 
-    flottant.appendChild(span);
+    // Position aléatoire autour du clic (ou du centre)
+    // On utilise des offsets aléatoires
+    const angle = Math.random() * Math.PI * 2;
+    const distance = 50 + Math.random() * 50; // Distance entre 50px et 100px du centre
+    const randomX = Math.cos(angle) * distance;
+    const randomY = Math.sin(angle) * distance;
+    
+    div.style.left = `calc(50% + ${randomX}px)`;
+    div.style.top = `calc(50% + ${randomY}px)`;
+
+    flottant.appendChild(div);
 
     // suppression après l’animation
-    setTimeout(() => span.remove(), 600);
+    setTimeout(() => div.remove(), 800);
 }
 
 /* =========================
@@ -97,11 +115,15 @@ function gpsTotalIndustries() {
  * - rerender UI
  */
 let lastTime = performance.now();
+
 function productionLoop(now) {
     const dt = (now - lastTime) / 1000; // secondes
     lastTime = now;
 
-    const gps = gpsTotalIndustries();
+    const baseGps = gpsTotalIndustries();
+    // Application du bonus global de production
+    const bonusMult = state.bonus.prodGlobalMult ?? 0;
+    const gps = baseGps * (1 + bonusMult);
     const gain = gps * dt;
 
     if (gain > 0) {
@@ -109,10 +131,28 @@ function productionLoop(now) {
         state.glandsTotal += gain;
     }
 
-    renderShopPremiereMachine();
     renderHUD();
+    checkPaliers();
+
+    // Rafraîchir le shop moins souvent (ex: toutes les 2 secondes)
+    // pour que l'utilisateur ait le temps de cliquer sur les boutons de test
+    // sans que l'élément soit recréé sous sa souris.
+    if (now - lastShopUpdate > 2000) {
+        updateShopUI();
+        lastShopUpdate = now;
+    }
 
     requestAnimationFrame(productionLoop);
+}
+
+let lastShopUpdate = performance.now();
+
+/**
+ * Met à jour l'état visuel du shop (boutons activés/désactivés)
+ * sans tout reconstruire si possible, ou alors appelé seulement quand nécessaire.
+ */
+function updateShopUI() {
+    renderShopPremiereMachine();
 }
 
 /* =========================
@@ -122,18 +162,28 @@ function productionLoop(now) {
    sinon on garde ton compteur UI local.
 */
 function onClick() {
-    // compteur clics (UI + state)
-    state.nbClics = (state.nbClics ?? 0) + 1;
-    compteur.textContent = state.nbClics;
-    ajouterClasse();
+    // calcul du gain au clic avec bonus
+    const clickBonus = state.bonus.clickAdd ?? 0;
+    const gainClic = (state.glandsParClic ?? 1) + clickBonus;
 
-    // gain en glands au clic
-    const gainClic = state.glandsParClic ?? 1;
+    // Mise à jour du state
     state.glands += gainClic;
     state.glandsTotal += gainClic;
+    state.nbClics = (state.nbClics ?? 0) + 1;
+
+    // UI
+    compteur.textContent = fmt(state.glands);
+    ajouterClasse();
+
+    // Vérification des paliers au clic
+    checkPaliers();
+
+    // HUD
+    renderHUD();
+    updateShopUI();
 
     // flottant "+X"
-    apparaitreFlottant(`+${gainClic}`);
+    apparaitreFlottant(`+${fmt(gainClic)}`);
 }
 
 clicker.addEventListener("click", onClick);
@@ -168,8 +218,6 @@ function renderShopPremiereMachine() {
     <p class="card-muted">+${gpsUnit} glands/sec</p>
     <p>Possédé: <b>${owned} / ${m.max}</b></p>
 
-    <p>GPS total: <b>${gpsTotal.toFixed(2)}</b> glands/sec</p>
-
     <p>Prix: <b>${fmt(price)}</b> glands</p>
     <button class="btn btn-primary ${capped || !affordable ? "btn-disabled" : ""}">
       Acheter
@@ -177,14 +225,14 @@ function renderShopPremiereMachine() {
 
     <hr style="border:0;border-top:1px solid rgba(255,255,255,.08);margin:12px 0;">
 
-    <p>Glands: <b>${fmt(state.glands)}</b></p>
-
-    <button class="btn btn-secondary" id="dbg-add">+1000 glands (test)</button>
+    <button class="btn btn-secondary" id="dbg-add">Ajout de 1000 glands</button>
   `;
 
     // Achat
     const buyBtn = card.querySelector(".btn-primary");
-    buyBtn.onclick = () => {
+    buyBtn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         // re-check (sécurité)
         if (!peutAcheterIndustrie(m, owned)) return;
 
@@ -196,16 +244,36 @@ function renderShopPremiereMachine() {
         state.glands -= currentPrice;
         state.machines[m.id] = currentOwned + 1;
 
-        renderShopPremiereMachine();
+        updateShopUI();
         renderHUD();
     };
 
     // Debug +1000
-    card.querySelector("#dbg-add").onclick = () => {
+    const dbgAddBtn = card.querySelector("#dbg-add");
+    dbgAddBtn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         state.glands += 1000;
-        renderShopPremiereMachine();
+        state.glandsTotal += 1000;
+        updateShopUI();
         renderHUD();
     };
+
+    // Debug GPS
+    const dbgGps = document.createElement("button");
+    dbgGps.className = "btn btn-secondary";
+    dbgGps.id = "dbg-gps";
+    dbgGps.style.marginTop = "8px";
+    dbgGps.textContent = "+1 I01 (Test GPS)";
+    dbgGps.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const currentOwned = state.machines[m.id] ?? 0;
+        state.machines[m.id] = currentOwned + 1;
+        updateShopUI();
+        renderHUD();
+    };
+    card.appendChild(dbgGps);
 
     rootShop.appendChild(card);
 }
@@ -220,23 +288,140 @@ function renderHUD() {
     const el = document.getElementById("glands-value");
     if (el) el.textContent = fmt(state.glands);
 
+    // Mise à jour du compteur principal également
+    if (compteur) compteur.textContent = fmt(state.glands);
+
     const elGps = document.getElementById("gps-value");
-    if (elGps) elGps.textContent = gpsTotalIndustries().toFixed(2);
+    if (elGps) {
+        const baseGps = gpsTotalIndustries();
+        const bonusMult = state.bonus.prodGlobalMult ?? 0;
+        const gps = baseGps * (1 + bonusMult);
+        elGps.textContent = gps.toFixed(2);
+    }
+
+    // On vérifie si on doit activer/désactiver les boutons du shop
+    // sans forcément tout redraw si on veut être opti, mais pour l'instant
+    // on va juste appeler updateShopUI de temps en temps ou ici si on accepte le redraw.
+    // Pour éviter de casser les boutons de test pendant qu'on clique, on ne redraw
+    // le shop dans renderHUD QUE si le nombre de glands a passé un seuil critique (ex: prix)
+    // ou simplement on ne le fait PAS ici et on le laisse aux actions explicites.
 }
 
 /* =========================
    INIT
    ========================= */
 function init() {
-    // init compteur clics
-    compteur.textContent = state.nbClics ?? 0;
+    // init compteur
+    compteur.textContent = fmt(state.glands);
 
     // rendu initial
     renderShopPremiereMachine();
     renderHUD();
+    checkPaliers();
 
     // démarre la production auto (même si gps=0 au début)
     requestAnimationFrame(productionLoop);
+}
+
+function checkPaliers() {
+    for (const p of paliers) {
+        // Si déjà fait, on passe
+        if (state.paliersFaits[p.id]) continue;
+
+        // Vérification condition
+        let conditionRemplie = false;
+        if (p.condition.type === "nbClics") {
+            if (state.nbClics >= p.condition.valeur) {
+                conditionRemplie = true;
+            }
+        } else if (p.condition.type === "glandsTotal") {
+            if (state.glandsTotal >= p.condition.valeur) {
+                conditionRemplie = true;
+            }
+        }
+
+        if (conditionRemplie) {
+            // Appliquer le bonus
+            if (p.bonus.type === "clickAdd") {
+                state.bonus.clickAdd = (state.bonus.clickAdd ?? 0) + p.bonus.valeur;
+            } else if (p.bonus.type === "prodGlobalMult") {
+                state.bonus.prodGlobalMult += p.bonus.valeur;
+            }
+
+            // Marquer comme fait
+            state.paliersFaits[p.id] = true;
+
+            // Notification (simple alert pour le moment ou console.log)
+            console.log(`Palier débloqué : ${p.nom} - ${p.message}`);
+            
+            // Notification visuelle
+            const notif = document.createElement("div");
+            notif.className = "palier-notif";
+            notif.innerHTML = `<strong>${p.nom}</strong><br>${p.message}`;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 4000);
+
+            // On pourrait ajouter un petit message flottant spécial
+            apparaitreFlottant(p.message);
+
+            // Action spécifique pour le palier PC04 (l'écureuil qui saute)
+            if (p.id === "PC04") {
+                triggerJumpSquirrel();
+            }
+        }
+    }
+}
+
+function triggerJumpSquirrel() {
+    const container = document.getElementById("jump-container");
+    const squirrel = document.getElementById("jump-squirrel");
+    const bubble = document.getElementById("jump-bubble");
+
+    if (!container || !squirrel || !bubble) return;
+
+    // Rendre le conteneur visible
+    container.classList.add("show-jump-container");
+
+    // Faire apparaître la bulle
+    setTimeout(() => {
+        bubble.classList.add("show-bubble");
+    }, 500);
+
+    // Lancer le saut
+    setTimeout(() => {
+        squirrel.classList.add("anim-jump");
+        spawnJumpTrees(container);
+    }, 1500);
+
+    // Faire tout disparaître après l'animation
+    setTimeout(() => {
+        container.classList.remove("show-jump-container");
+        bubble.classList.remove("show-bubble");
+        squirrel.classList.remove("anim-jump");
+        // Nettoyer les arbres
+        const trees = container.querySelectorAll(".jump-tree");
+        trees.forEach(t => t.remove());
+    }, 6000);
+}
+
+function spawnJumpTrees(container) {
+    const keyframes = [
+        { time: 0, x: 50 },      // 0%
+        { time: 500, x: 400 },   // 25% (2s * 0.25 = 0.5s)
+        { time: 1000, x: 800 },  // 50% (2s * 0.5 = 1s)
+        { time: 1500, x: 1150 }, // 75% (2s * 0.75 = 1.5s)
+        { time: 2000, x: 1500 }  // 100% (2s * 1 = 2s)
+    ];
+
+    keyframes.forEach(kf => {
+        setTimeout(() => {
+            const tree = document.createElement("img");
+            tree.src = "./assets/img/items/arbre-jump.png";
+            tree.className = "jump-tree";
+            tree.style.left = `${kf.x}px`;
+            container.appendChild(tree);
+        }, kf.time);
+    });
 }
 
 init();
